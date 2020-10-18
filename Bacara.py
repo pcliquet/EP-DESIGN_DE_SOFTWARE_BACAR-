@@ -1,8 +1,11 @@
+# EP - Design de Software
+# Equipe: Pedro Cliquet do Amaral
+# Data: 18/10/2020
+
 import random
 
 
 fichas = 100
-
 
 while fichas > 0 :
     if fichas == 0 :
@@ -33,20 +36,19 @@ while fichas > 0 :
     
     
     #MESA
-    if mao_mesa < 5:
+    if mao_mesa <= 5:
         print('Mesa recebe mais uma carta')
         carta_3 = random.randint(0,9)
         mesa.append(carta_3)
         mao_mesa = sum(mesa)
         print(mesa)
-        print(mao_mesa)
     if mao_mesa > 10 :
-        print('Soma da mao da mesa:')
+        print('Soma da mão da mesa:')
         mao_mesa = mao_mesa - 10
         print(mao_mesa)
     
     #JOGADOR
-    if mao_jogador < 5:
+    if mao_jogador <= 5:
         print('Jogador recebe mais uma carta')
         carta_4 = random.randint(0,9)
         jogador.append(carta_4)
@@ -54,38 +56,36 @@ while fichas > 0 :
         print(jogador) 
         print('Soma da mão do jogador:')
         print(mao_jogador)
-    if mao_jogador > 10 :
+    if mao_jogador >= 10 :
        mao_jogador = mao_jogador - 10
        print('Soma da mao da jogador:')
        print(mao_jogador)    
     
     #METODO
+    #apostando na mesa
     if metodo == 'mesa':
-        if mao_jogador < mao_mesa:
-            fichas = fichas + aposta*(95/100)
-            print('Você ganhou!')
-        if mao_mesa == 8:
-            fichas = fichas + aposta*(95/100)
-            print('Você ganhou!')
-        if mao_mesa == 9:
-            fichas = fichas + aposta
-            print('Você ganhou!')
-        else:
+        if mao_mesa == mao_jogador:
             fichas = fichas - aposta
             print('Você perdeu!')
+        if mao_mesa > mao_jogador or mao_mesa == 8 and 9:
+            fichas = int(fichas + aposta*(95/100))
+            print('Você ganhou!')
+        elif mao_jogador > mao_mesa:
+            fichas = fichas - aposta
+            print('Você perdeu!')
+
+    #apostando no jogador
     if metodo == 'jogador':
-        if mao_mesa < mao_jogador:
+        if mao_mesa < mao_jogador or mao_jogador == 8 and 9:
             fichas = fichas + aposta
             print('Você ganhou!')
-        if mao_jogador == 8:
-            fichas = fichas + aposta
-            print('Você ganhou!')
-        if mao_jogador == 9:
-            fichas = fichas + aposta
-            print('Você ganhou!')
-        else:
+        elif mao_jogador < mao_mesa:
             fichas = fichas - aposta
             print('Você perdeu!')    
+        if mao_mesa == mao_jogador:
+            fichas = fichas - aposta
+            print('Você perdeu!')
+    #apostando no empate
     if metodo == 'empate':
         if mao_jogador == mao_mesa:
             fichas = fichas + aposta*8
