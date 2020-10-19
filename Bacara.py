@@ -60,15 +60,20 @@ while fichas > 0 :
        mao_jogador = mao_jogador - 10
        print('Soma da mao da jogador:')
        print(mao_jogador)    
-    
+    #Comissão
+    taxa_mesa = int(aposta*(1.01/100))
+    taxa_jogador = int(aposta*(1.29/100))
+    taxa_empate = int(aposta*(15.75/100))
+
+
     #METODO
     #apostando na mesa
     if metodo == 'mesa':
         if mao_mesa == mao_jogador:
             fichas = fichas - aposta
             print('Você perdeu!')
-        if mao_mesa > mao_jogador or mao_mesa == 8 and 9:
-            fichas = int(fichas + aposta*(95/100))
+        if mao_mesa > mao_jogador:
+            fichas = int(fichas + aposta*(95/100)) - taxa_mesa
             print('Você ganhou!')
         elif mao_jogador > mao_mesa:
             fichas = fichas - aposta
@@ -76,8 +81,8 @@ while fichas > 0 :
 
     #apostando no jogador
     if metodo == 'jogador':
-        if mao_mesa < mao_jogador or mao_jogador == 8 and 9:
-            fichas = fichas + aposta
+        if mao_mesa < mao_jogador:
+            fichas = fichas + aposta - taxa_jogador
             print('Você ganhou!')
         elif mao_jogador < mao_mesa:
             fichas = fichas - aposta
@@ -88,7 +93,7 @@ while fichas > 0 :
     #apostando no empate
     if metodo == 'empate':
         if mao_jogador == mao_mesa:
-            fichas = fichas + aposta*8
+            fichas = fichas + aposta*8 - taxa_empate
             print('Você ganhou!')
         else:
             fichas = fichas - aposta
